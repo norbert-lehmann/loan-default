@@ -11,7 +11,8 @@ from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 # from sklearn.tree import DecisionTreeClassifier
 # sklearn.neighbors import KNeighborsClassifier
 
-os.chdir('/home/pawel/Dokumenty/Dydakt/Zima2023/Fintech_classification/classification_project')
+#scieżka do projektu, bez uruchamia się w bieżącym katalogu
+#os.chdir('/home/pawel/Dokumenty/Dydakt/Zima2023/Fintech_classification/classification_project')
 
 # wczytaj dane
 df0 = pd.read_parquet('data/train_data_0.pq').astype('int32')
