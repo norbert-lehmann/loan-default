@@ -41,7 +41,7 @@ print('W zbiorze do treningu', len(df_train), "a testowym", len(df_test), "obs."
 
 # wczytaj z pliku specyfikacje (lista list; pomin linie bez zawartości)
 with open('specs_logit.txt', 'r') as f:
-    specifications = [i.split() for i in f.readlines() if re.findall('\w', i)]
+    specifications = [i.split() for i in f.readlines() if re.findall(r'\w+', i)]
 
 accuracy_list = []   # prostacki sposób przechowywania wyników
 
