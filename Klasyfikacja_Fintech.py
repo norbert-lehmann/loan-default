@@ -15,6 +15,7 @@ from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 #os.chdir('/home/pawel/Dokumenty/Dydakt/Zima2023/Fintech_classification/classification_project')
 
 # wczytaj dane
+#parquest - columnar, compressed storage file format that is optimized for use with big data processing frameworks
 df0 = pd.read_parquet('data/train_data_0.pq').astype('int32')
 df1 = pd.read_parquet('data/train_data_1.pq').astype('int32')
 df = pd.concat([df0, df1])
@@ -31,6 +32,8 @@ del(df0)
 del(df1)
 df = df.rename(columns={'flag': 'Y'})
 
+#ustalenie podziału danych wejściowych na dane treningowe i testowe. 75% danych uzytych do trenowania.
+#Losowanie danych na podstawie wartości random_state
 df_train, df_test = train_test_split(df, train_size=0.75, random_state=27)
 # stratify? walidacja krzyżowa?
 
