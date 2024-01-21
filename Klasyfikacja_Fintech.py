@@ -45,8 +45,29 @@ with open('specs_logit.txt', 'r') as f:
 
 accuracy_list = []   # prostacki sposób przechowywania wyników
 
-# LogisticRegression - loop over specifications
+#ispec_accuracy będzie podobne, jeżeli dane będą podobne
+#Check Descriptive Statistics: You can use the describe() function in pandas to get a summary of
+#-the central tendency,
+#-dispersion,
+#-shape of a dataset’s distribution.
+#If the statistics for these two sets of values are significantly different,
+#it suggests that the sets of values are different, otherwise they are similar.
+print("Statystyczny opis danych")
+print(df[['rn','pre_loans_credit_limit']].describe())
+print(df[['is_zero_loans3060', 'is_zero_loans6090', 'is_zero_loans90']].describe())
 
+print("Wizualizacja danych")
+#Wizualizacja danych, żeby porównać dystrybucję
+plt.hist(df['rn'], alpha=0.4, label='rn')
+plt.hist(df['pre_loans_credit_limit'], alpha=0.5, label='pre_loans_credit_limit')
+plt.hist(df['is_zero_loans3060'], alpha=0.6, label='is_zero_loans3060')
+plt.hist(df['is_zero_loans6090'], alpha=0.7, label='is_zero_loans6090')
+plt.hist(df['is_zero_loans90'], alpha=0.8, label='is_zero_loans90')
+plt.legend(loc='upper right')
+plt.show()
+
+# LogisticRegression - loop over specifications
+print("looping over specifications")
 for ispec in specifications:
     mymodel = LogisticRegression()
     X_train, X_test = df_train[ispec], df_test[ispec]
@@ -95,3 +116,5 @@ for i_maxdepth in tree_maxdepths_versions:
 # TODO: feature importance?
 
 # TODO: inne metody radzenia sobie z niezbilansowanym Y (upsampling, downsampling)
+
+print("Koniec obliczeń")
