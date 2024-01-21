@@ -1,0 +1,2 @@
+rn pre_loans_credit_limit
+is_zero_loans3060 is_zero_loans6090 is_zero_loans90
