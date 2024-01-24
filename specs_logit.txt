@@ -1,2 +1,6 @@
-rn pre_loans_credit_limit
-is_zero_loans3060 is_zero_loans6090 is_zero_loans90
+pre_loans6090 pre_loans90 pre_till_fclose
+pre_since_opened pre_since_confirmed pre_till_fclose pre_loans_credit_limit pre_loans_outstanding pre_loans530
+pre_loans_credit_limit pre_loans_outstanding pre_loans530
+
+
+

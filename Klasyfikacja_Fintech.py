@@ -19,10 +19,16 @@ from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 df0 = pd.read_parquet('data/train_data_0.pq').astype('int32')
 df1 = pd.read_parquet('data/train_data_1.pq').astype('int32')
 df = pd.concat([df0, df1])
+
 dtypes_dict = {'pclose_flag': 'int8', 'fclose_flag': 'int8',
                'is_zero_util': 'int8', 'is_zero_over2limit': 'int8', 'is_zero_maxover2limit': 'int8'}
 df = df.astype(dtypes_dict)
+
+##df.to_csv('output.csv', index=False)
+##print("dane wejściowe zapisane")
+
 target = pd.read_csv('data/target.csv').astype({'flag': 'int8'})
+
 
 # JOIN LEFT - zmienne wejsciowe + zmienna wyjsciowa
 df = df.merge(target, how='left', on='id')
@@ -34,7 +40,7 @@ df = df.rename(columns={'flag': 'Y'})
 
 #ustalenie podziału danych wejściowych na dane treningowe i testowe. 75% danych uzytych do trenowania.
 #Losowanie danych na podstawie wartości random_state
-df_train, df_test = train_test_split(df, train_size=0.75, random_state=27)
+df_train, df_test = train_test_split(df, train_size=0.75, random_state=15767)
 # stratify? walidacja krzyżowa?
 
 print('W zbiorze do treningu', len(df_train), "a testowym", len(df_test), "obs.")
@@ -52,23 +58,26 @@ accuracy_list = []   # prostacki sposób przechowywania wyników
 #-shape of a dataset’s distribution.
 #If the statistics for these two sets of values are significantly different,
 #it suggests that the sets of values are different, otherwise they are similar.
-print("Statystyczny opis danych")
-print(df[['rn','pre_loans_credit_limit']].describe())
-print(df[['is_zero_loans3060', 'is_zero_loans6090', 'is_zero_loans90']].describe())
+##print("Statystyczny opis danych")
+##print(df[['rn','pre_loans_credit_limit']].describe())
+##print(df[['is_zero_loans3060', 'is_zero_loans6090', 'is_zero_loans90']].describe())
 
 print("Wizualizacja danych")
 #Wizualizacja danych, żeby porównać dystrybucję
-plt.hist(df['rn'], alpha=0.4, label='rn')
-plt.hist(df['pre_loans_credit_limit'], alpha=0.5, label='pre_loans_credit_limit')
-plt.hist(df['is_zero_loans3060'], alpha=0.6, label='is_zero_loans3060')
-plt.hist(df['is_zero_loans6090'], alpha=0.7, label='is_zero_loans6090')
-plt.hist(df['is_zero_loans90'], alpha=0.8, label='is_zero_loans90')
-plt.legend(loc='upper right')
-plt.show()
+##plt.hist(df['rn'], alpha=0.4, label='rn')
+##plt.hist(df['pre_loans_credit_limit'], alpha=0.5, label='pre_loans_credit_limit')
+##plt.hist(df['is_zero_loans3060'], alpha=0.6, label='is_zero_loans3060')
+##plt.hist(df['is_zero_loans6090'], alpha=0.7, label='is_zero_loans6090')
+##plt.hist(df['is_zero_loans90'], alpha=0.8, label='is_zero_loans90')
+#pre_loans530 pre_till_fclose
+#plt.hist(df['is_zero_loans90'], alpha=0.8, label='is_zero_loans90')
+##plt.legend(loc='upper right')
+##plt.show()
 
 # LogisticRegression - loop over specifications
 print("looping over specifications")
 for ispec in specifications:
+    print(ispec)
     mymodel = LogisticRegression()
     X_train, X_test = df_train[ispec], df_test[ispec]
     mymodel.fit(X_train, df_train['Y'])
